@@ -9,12 +9,41 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
     // For the first screen, display the plugin name.
     strlcpy(msg->name, APPNAME, msg->nameLength);
 
+    const char *msgVersion;
+
     // EDIT THIS: Adapt the cases by modifying the strings you pass to `strlcpy`.
-    if (context->selectorIndex == SWAP_EXACT_ETH_FOR_TOKENS) {
-        strlcpy(msg->version, "Swap", msg->versionLength);
-        msg->result = ETH_PLUGIN_RESULT_OK;
-    } else {
-        PRINTF("Selector index: %d not supported\n", context->selectorIndex);
-        msg->result = ETH_PLUGIN_RESULT_ERROR;
+    switch (context->selectorIndex) {
+        case KELP_LST_DEPOSIT:
+            msgVersion = "LST Restake";
+            break;
+        case KELP_ETH_DEPOSIT:
+            msgVersion = "Native Restake";
+            break;
+
+        case KELP_INITIATE_WITHDRAW:
+            msgVersion = "Unstake";
+            break;
+
+        case KELP_CLAIM_WITHDRAW:
+            msgVersion = "Claim";
+            break;
+
+        case GAIN_DEPOSIT_ETH:
+        case GAIN_DEPOSIT_LST:
+        case GAIN_DEPOSIT_RSETH:
+            msgVersion = "Gain Deposit";
+            break;
+
+        case GAIN_WITHDRAW:
+            msgVersion = "Gain Withdraw";
+            break;
+
+        default:
+            PRINTF("Selector index: %d not supported\n", context->selectorIndex);
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            return;
     }
+
+    strlcpy(msg->version, msgVersion, msg->versionLength);
+    msg->result = ETH_PLUGIN_RESULT_OK;
 }

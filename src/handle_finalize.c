@@ -3,19 +3,28 @@
 void handle_finalize(ethPluginFinalize_t *msg) {
     context_t *context = (context_t *) msg->pluginContext;
 
-    msg->uiType = ETH_UI_TYPE_GENERIC;
+    switch (context->selectorIndex) {
+        case GAIN_DEPOSIT_LST:
+        case KELP_LST_DEPOSIT:
+        case KELP_CLAIM_WITHDRAW:
+            msg->numScreens = 1;
+            msg->tokenLookup1 = context->token_addr;
+            break;
 
-    // EDIT THIS: Set the total number of screen you will need.
-    msg->numScreens = 2;
-    // EDIT THIS: Handle this case like you wish to (i.e. maybe no additional screen needed?).
-    // If the beneficiary is NOT the sender, we will need an additional screen to display it.
-    if (memcmp(msg->address, context->beneficiary, ADDRESS_LENGTH) != 0) {
-        msg->numScreens += 1;
+        case KELP_INITIATE_WITHDRAW:
+            msg->numScreens = 2;
+            msg->tokenLookup1 = context->token_addr;
+            break;
+
+        case GAIN_WITHDRAW:
+            msg->numScreens = 3;
+            break;
+
+        default:
+            msg->numScreens = 1;
+            break;
     }
-
-    // EDIT THIS: set `tokenLookup1` (and maybe `tokenLookup2`) to point to
-    // token addresses you will info for (such as decimals, ticker...).
-    msg->tokenLookup1 = context->token_received;
+    msg->uiType = ETH_UI_TYPE_GENERIC;
 
     msg->result = ETH_PLUGIN_RESULT_OK;
 }

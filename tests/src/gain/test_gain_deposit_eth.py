@@ -1,0 +1,22 @@
+from web3 import Web3
+from tests.utils import run_test, load_contract
+
+contract = load_contract(
+    "0xbf28C9FCb12A97441488f9C68FaA49811a98688a"
+)
+
+# Test from replayed transaction: https://etherscan.io/tx/0x747122f0a9d8f06ae0afb91479acdc3112253e4b5e9d9a90a691a9cdae74ef17
+
+def test_gain_deposit_eth(backend, firmware, navigator, test_name, wallet_addr):
+    data = "0x4e3c04bd00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000042307864303537323363376231376234653463373232636134666239356536346666633534613730313331633735653262323534386134353663353165643763646166000000000000000000000000000000000000000000000000000000000000"
+    run_test(
+        contract, 
+        data, 
+        backend, 
+        firmware, 
+        navigator, 
+        test_name, 
+        wallet_addr,
+        value=2
+    )
+

@@ -1,40 +1,30 @@
-[![Ensure compliance with Ledger guidelines](https://github.com/LedgerHQ/app-plugin-boilerplate/actions/workflows/guidelines_enforcer.yml/badge.svg?branch=develop)](https://github.com/LedgerHQ/app-plugin-boilerplate/actions/workflows/guidelines_enforcer.yml)
-[![Compilation & tests](https://github.com/LedgerHQ/app-plugin-boilerplate/actions/workflows/build_and_functional_tests.yml/badge.svg?branch=develop)](https://github.com/LedgerHQ/app-plugin-boilerplate/actions/workflows/build_and_functional_tests.yml)
+# Ledger Kelp Plugin
+
+This is a plugin for the Ethereum application which helps parsing and displaying relevant information when signing a Kelp transaction.
+
+## Setup
+
+1. Clone this [repo](git@github.com:LedgerHQ/app-plugin-kelp.git) (along with git submodules)
+    ```shell
+    git clone --recurse-submodules git@github.com:LedgerHQ/app-plugin-kelp.git
+    ```
+
+2. Make sure you have an X11 server running:
+    - On Ubuntu Linux, it should be running by default
+    - On macOS, install and launch XQuartz (make sure to go to XQuartz > Preferences > Security and check "Allow client connections")
+    - On Windows, install and launch VcXsrv (make sure to configure it to disable access control)
+
+3. Install and run docker desktop
+
+4. Install the [Ledger Dev Tools VS Code plugin](https://marketplace.visualstudio.com/items?itemName=LedgerHQ.ledger-dev-tools&ssr=false#overview) and makes sure it's enabled
+
+5. Once you have installed the plugin and open the repo, the plugin should by default try to create and start the containers. If it doesn't, you can simply click "Update Container" under "Ledger Dev Tools" in the Activity Side Bar on VS Code.
+
+6. On the "Ledger Dev Tools" side bar, Select a target and then click on Build.
+
+7. Once build is complete, click on "Run tests" to run the tests
 
 
-# app-plugin-boilerplate
+## Smart Contracts
 
-This repo is meant to be a forkable example of a plugin.
-
-Plugins are lightweight applications that go hand-in-hand with the Ethereum
-Application on a Nano (S plus, X), Stax and Flex devices.
-
-They allow users to safely interact with smart contracts by parsing the
-transaction data and displaying its content in a human-readable way. This is
-done on a "per contract" basis, meaning a plugin is required for every DApp.
-
-The code has been commented, and special "EDIT THIS" comments indicate where
-developers are expected to adapt the code to their own needs.
-
-It is STRONGLY recommended to follow the
-[plugin guide](https://ethereum-plugin-sdk.ledger.com/)
-in order to better understand the flow and the context for plugins.
-
-## Ethereum SDK
-
-Ethereum plugins need the [Ethereum SDK](https://github.com/LedgerHQ/ethereum-plugin-sdk).
-You can use the `ETHEREUM_PLUGIN_SDK` variable to point to the directory where you cloned
-this repository. By default, the `Makefile` expects it to be at the root directory of this
-plugin repository by the `ethereum-plugin-sdk` name.
-
-You can see that this [CI](https://github.com/LedgerHQ/app-plugin-boilerplate/blob/develop/.github/workflows/check_sdk.yml) workflow
-verifies that the SDK used is either on the latest `master` or `develop` references. This ensures
-the code is compiled and tested on the latest version of the SDK.
-
-## Documentation
-
-The documentation about the plugin shall be added in [PLUGIN_SPECIFICATON.md](https://github.com/LedgerHQ/app-plugin-boilerplate/blob/develop/PLUGIN_SPECIFICATION.md). It shall includes at least the smart contracts and functions supported by the plugin.
-
-## Formatting
-
-The C source code is expected to be formatted with `clang-format` 11.0.0 or higher.
+Smart contracts covered by this plugin are documented in [PLUGIN_SPECIFICATON.md](https://github.com/LedgerHQ/app-plugin-kelp/blob/develop/PLUGIN_SPECIFICATION.md)
