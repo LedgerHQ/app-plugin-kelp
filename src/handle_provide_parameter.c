@@ -99,6 +99,13 @@ static void handle_gain_withdraw(ethPluginProvideParameter_t *msg, context_t *co
 
         case ACCOUNT_ADDR:
             copy_address(context->account_addr, msg->parameter, sizeof(context->account_addr));
+            context->next_param = ADDITIONAL_ADDR;
+            break;
+
+        case ADDITIONAL_ADDR:
+            copy_address(context->additional_addr,
+                         msg->parameter,
+                         sizeof(context->additional_addr));
             context->next_param = UNEXPECTED_PARAMETER;
             context->skip_next_param = true;
             break;

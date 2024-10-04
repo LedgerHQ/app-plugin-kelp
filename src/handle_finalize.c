@@ -17,7 +17,7 @@ void handle_finalize(ethPluginFinalize_t *msg) {
             break;
 
         case GAIN_WITHDRAW:
-            msg->numScreens = 3;
+            msg->numScreens = 4;
             break;
 
         default:

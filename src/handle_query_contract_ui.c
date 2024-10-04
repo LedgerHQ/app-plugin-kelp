@@ -61,7 +61,7 @@ static bool handle_kelp_initiate_withdraw(ethQueryContractUI_t *msg, context_t *
     return ret;
 }
 
-static bool set_account_addr_ui(ethQueryContractUI_t *msg, context_t *context) {
+static bool set_account_addr_ui(ethQueryContractUI_t *msg, uint8_t address[ADDRESS_LENGTH]) {
     // Prefix the address with `0x`.
     msg->msg[0] = '0';
     msg->msg[1] = 'x';
@@ -73,7 +73,7 @@ static bool set_account_addr_ui(ethQueryContractUI_t *msg, context_t *context) {
     // Get the string format of the address stored in `context->beneficiary`. Store it in
     // `msg->msg`.
     return getEthAddressStringFromBinary(
-        context->account_addr,
+        address,
         (char *) msg->msg + 2,  // +2 because we've already prefixed with '0x'.
         chainid);
 }
@@ -94,10 +94,15 @@ static bool handle_gain_withdraw(ethQueryContractUI_t *msg, context_t *context) 
 
         case 1:
             strlcpy(msg->title, "Receiver", msg->titleLength);
-            ret = set_account_addr_ui(msg, context);
+            ret = set_account_addr_ui(msg, context->account_addr);
             break;
 
         case 2:
+            strlcpy(msg->title, "Holder", msg->titleLength);
+            ret = set_account_addr_ui(msg, context->additional_addr);
+            break;
+
+        case 3:
             strlcpy(msg->title, "Asset Expected", msg->titleLength);
             strlcpy(msg->msg, "rsETH", msg->msgLength);
             ret = true;

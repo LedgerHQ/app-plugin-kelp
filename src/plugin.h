@@ -57,6 +57,7 @@ typedef enum {
     STAKE_AMOUNT = 0,
     UNSTAKE_AMOUNT,
     ACCOUNT_ADDR,
+    ADDITIONAL_ADDR,
     TOKEN_ADDR,
     UNEXPECTED_PARAMETER,
 } parameter;
@@ -68,6 +69,7 @@ typedef struct context_s {
     // For display.
     uint8_t amount_received[INT256_LENGTH];
     uint8_t account_addr[ADDRESS_LENGTH];
+    uint8_t additional_addr[ADDRESS_LENGTH];
     uint8_t token_addr[ADDRESS_LENGTH];
     char ticker[MAX_TICKER_LEN];
 

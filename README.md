@@ -1,4 +1,4 @@
-# Ledger Kelp Plugin
+# Ledger Kelp Plugin 
 
 This is a plugin for the Ethereum application which helps parsing and displaying relevant information when signing a Kelp transaction.
 
