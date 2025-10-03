@@ -4,8 +4,8 @@
 static bool set_native_token_stake_ui(ethQueryContractUI_t *msg) {
     strlcpy(msg->title, "Stake", msg->titleLength);
 
-    const uint8_t *native_token_amount = msg->pluginSharedRO->txContent->value.value;
-    uint8_t native_token_amount_size = msg->pluginSharedRO->txContent->value.length;
+    const uint8_t *native_token_amount = msg->txContent->value.value;
+    uint8_t native_token_amount_size = msg->txContent->value.length;
 
     // Converts the uint256 number located in `native_token_amount` to its string representation and
     // copies this to `msg->msg`.
