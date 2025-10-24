@@ -67,7 +67,7 @@ def set_all_token_metadata(client):
                                            token.chain_id)
 
 
-def run_test(contract, data, backend, firmware, navigator, test_name, wallet_addr, chain_id=ChainId.ETH, value=0, gas=300000):
+def run_test(contract, data, backend, navigator, test_name, wallet_addr, chain_id=ChainId.ETH, value=0, gas=300000):
     client = EthAppClient(backend)
 
     # first setup the external plugin
@@ -91,10 +91,10 @@ def run_test(contract, data, backend, firmware, navigator, test_name, wallet_add
     # send the transaction
     with client.sign(DERIVATION_PATH, tx_params):
         # Validate the on-screen request by performing the navigation appropriate for this device
-        if firmware.is_nano:
+        if backend.device.is_nano:
             navigator.navigate_until_text_and_compare(NavInsID.RIGHT_CLICK,
                                                       [NavInsID.BOTH_CLICK],
-                                                      "Accept",
+                                                      "Sign transaction",
                                                       ROOT_SCREENSHOT_PATH,
                                                       test_name)
         else:
